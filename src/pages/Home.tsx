@@ -1,5 +1,8 @@
+
+
+
 const links = [
-    { name: "Vitrine de produtos", href: "#" },
+    { name: "Vitrine de produtos", href: "/Vitrine" },
     { name: "Categorias", href: "#" },
     { name: "Quem Somos", href: "#" },
     { name: "Contato", href: "#" },
@@ -52,6 +55,7 @@ const links = [
               ))}
             </div>
           </div>
+     
         </div>
         {/* <footer className="text-center flex justify-center items-center mt-12">
             <p className="text-white">Todos os direitos reservados © 2024 Órbita Store</p>
