@@ -34,7 +34,7 @@ export default function Login() {
     localStorage.setItem("email", values.email);
     localStorage.setItem("password", values.password);
 
-    // Simulando validação de login
+   
     if (values.email === "user@example.com" && values.password === "password") {
       swal.fire({
         icon: "success",
