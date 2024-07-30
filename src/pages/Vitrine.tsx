@@ -1,5 +1,8 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { RiArrowGoBackFill } from "react-icons/ri";
 
 type Product = {
   id: number;
@@ -15,21 +18,40 @@ type CartItem = Product & {
   quantity: number;
 };
 
-const products: Product[] = [
-  {
-    id: 1,
-    name: 'Basic Tee',
-    href: '/product/1',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
-    price: 35,
-    color: 'Black',
-  },
-  // More products...
-];
-
-export default function Example() {
+export default function Vitrine() {
+  const [products, setProducts] = useState<Product[]>([]);
   const [cart, setCart] = useState<CartItem[]>([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const response = await fetch('https://fakestoreapi.com/products');
+      const data = await response.json();
+      const fetchedProducts = data.slice(0, 10).map((item: any) => ({
+        id: item.id,
+        name: item.title,
+        href: `/product/${item.id}`,
+        imageSrc: item.image,
+        imageAlt: item.title,
+        price: Math.floor(Math.random() * 100) + 1,
+        color: 'N/A',
+      }));
+      setProducts(fetchedProducts);
+    };
+
+    fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    const storedCart = localStorage.getItem('cart');
+    if (storedCart) {
+      setCart(JSON.parse(storedCart));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
 
   const addToCart = (product: Product) => {
     const existingProduct = cart.find((item) => item.id === product.id);
@@ -58,44 +80,55 @@ export default function Example() {
     ));
   };
 
-  const checkout = () => {
-    console.log('Checkout', cart);
-    // Implement checkout functionality here
+  const checkout = async () => {
+    try {
+      const response = await axios.post('https://your-backend-api.com/checkout', { cart });
+      console.log('Checkout successful:', response.data);
+      localStorage.removeItem('cart');
+      setCart([]);
+      navigate('/order-confirmation');
+    } catch (error) {
+      console.error('Checkout failed:', error);
+    }
   };
 
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-        <h2 className="text-2xl font-bold tracking-tight text-gray-900">Customers also purchased</h2>
+        <h2 className="text-2xl font-bold tracking-tight text-gray-900">VITRINE</h2>
 
-        <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+        <div className="mt-6 grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {products.map((product) => (
-            <div key={product.id} className="group relative">
-              <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+            <div key={product.id} className="group relative border p-4 rounded-lg flex flex-col h-full">
+              <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80 cursor-pointer">
                 <img
                   alt={product.imageAlt}
                   src={product.imageSrc}
                   className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                 />
               </div>
-              <div className="mt-4 flex justify-between">
-                <div>
-                  <h3 className="text-sm text-gray-700">
-                    <Link to={product.href}>
-                      <span aria-hidden="true" className="absolute inset-0" />
-                      {product.name}
-                    </Link>
-                  </h3>
-                  <p className="mt-1 text-sm text-gray-500">{product.color}</p>
+              <div className="mt-4 flex-grow flex flex-col">
+                <div className="flex justify-between">
+                  <div>
+                    <h3 className="text-sm text-gray-700">
+                      <Link to={product.href}>
+                        <span aria-hidden="true" className="absolute inset-0" />
+                        {product.name}
+                      </Link>
+                    </h3>
+                    <p className="mt-1 text-sm text-gray-500">{product.color}</p>
+                  </div>
+                  <p className="text-sm font-medium text-gray-900">${product.price}</p>
                 </div>
-                <p className="text-sm font-medium text-gray-900">${product.price}</p>
+                <div className="mt-auto">
+                  <button
+                    onClick={() => addToCart(product)}
+                    className="mt-2 bg-blue-500 text-white py-2 rounded w-full"
+                  >
+                    Add to cart
+                  </button>
+                </div>
               </div>
-              <button
-                onClick={() => addToCart(product)}
-                className="mt-2 w-full bg-blue-500 text-white py-2 px-4 rounded"
-              >
-                Add to cart
-              </button>
             </div>
           ))}
         </div>
@@ -145,12 +178,21 @@ export default function Example() {
               ))}
             </ul>
           )}
-          <button
-            onClick={checkout}
-            className="mt-4 bg-green-500 text-white py-2 px-4 rounded"
-          >
-            Checkout
-          </button>
+          <div className="flex space-x-4 mt-4">
+            <Link
+              className='text-black bg-gray-200 py-2 px-4 rounded flex items-center'
+              to={"/Home"}
+            >
+              <RiArrowGoBackFill size={30} />
+              <span className="ml-2">Back</span>
+            </Link>
+            <button
+              onClick={checkout}
+              className="bg-green-500 text-white py-2 px-4 rounded w-24"
+            >
+              Checkout
+            </button>
+          </div>
         </div>
       </div>
     </div>
