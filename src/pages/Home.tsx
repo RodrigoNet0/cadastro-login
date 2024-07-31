@@ -3,7 +3,7 @@
 
 const links = [
     { name: "Vitrine de produtos", href: "/Vitrine" },
-    { name: "Categorias", href: "#" },
+    { name: "Login", href: "/Login" },
     { name: "Quem Somos", href: "#" },
     { name: "Contato", href: "#" },
   ];

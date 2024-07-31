@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as yup from "yup";
 import { Formik, Field, Form } from "formik";
 import { useEffect, useState } from "react";
 import swal from "sweetalert2";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function Login() {
   interface Values {
@@ -34,7 +36,6 @@ export default function Login() {
     localStorage.setItem("email", values.email);
     localStorage.setItem("password", values.password);
 
-   
     if (values.email === "user@example.com" && values.password === "password") {
       swal.fire({
         icon: "success",
@@ -58,6 +59,10 @@ export default function Login() {
     email: yup.string().email().required("Preencha o email"),
     password: yup.string().required("Preencha a senha"),
   });
+
+  const onChange = (value: any) => {
+    console.log(value);
+  };
 
   return (
     <Formik
@@ -142,6 +147,7 @@ export default function Login() {
                     Entre
                   </button>
                 </div>
+                <ReCAPTCHA sitekey="YOUR_SITE_KEY" onChange={onChange} />
               </div>
               <p className="mt-10 text-center text-sm text-gray-500">
                 Não é membro?{" "}
