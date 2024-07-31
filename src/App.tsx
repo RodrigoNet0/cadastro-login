@@ -4,6 +4,7 @@ import './App.css'
 import Home from './pages/Home'
 import Vitrine from './pages/Vitrine'
 import Login from './components/Login/Login'
+import Contato from './components/Contato/Contato'
 
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
       <Route path="*" element={<Home/>}/>
       <Route path="/Vitrine" element={<Vitrine/>}/>
       <Route path="/Login" element={<Login/>}/>
-      <Route path="/cadastro-login" element={<Home/>}/>
+      <Route path="/Contato" element={<Contato/>}/>
       <Route path="/cadastro-cadastro" element={<Home/>}/> 
     </Routes>
     </BrowserRouter>

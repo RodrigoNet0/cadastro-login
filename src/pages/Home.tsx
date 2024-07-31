@@ -5,7 +5,7 @@ const links = [
     { name: "Vitrine de produtos", href: "/Vitrine" },
     { name: "Login", href: "/Login" },
     { name: "Quem Somos", href: "#" },
-    { name: "Contato", href: "#" },
+    { name: "Contato", href: "/Contato" },
   ];
   
   export default function Home() {
