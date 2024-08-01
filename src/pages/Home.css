@@ -1,0 +1,17 @@
+@keyframes flame {
+    0%, 100% {
+      text-shadow: 0 0 5px rgba(0, 191, 255, 0.6),  /* Aqua */
+                   0 0 10px rgba(0, 0, 255, 0.5),   /* Blue */
+                   0 0 15px rgba(70, 130, 180, 0.4); /* SteelBlue */
+    }
+    50% {
+      text-shadow: 0 0 10px rgba(0, 191, 255, 1), 
+                   0 0 20px rgba(0, 0, 255, 0.7), 
+                   0 0 30px rgba(70, 130, 180, 0.5); 
+    }
+  }
+  
+  .animate-flame {
+    animation: flame 5s infinite;
+  }
+  

@@ -93,11 +93,16 @@ export default function Vitrine() {
   };
 
   return (
-    <div className="bg-white">
-      <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+    <div className="relative bg-white">
+      <img
+        src="https://wallpapercave.com/wp/wp2757956.gif"
+        alt="background"
+        className="absolute inset-0 w-full h-full object-cover opacity-20"
+      />
+      <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24">
         <h2 className="text-2xl font-bold tracking-tight text-gray-900">VITRINE</h2>
 
-        <div className="mt-6 grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+        <div className="mt-6 grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
           {products.map((product) => (
             <div key={product.id} className="group relative border p-4 rounded-lg flex flex-col h-full">
               <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80 cursor-pointer">
