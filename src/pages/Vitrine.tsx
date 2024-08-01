@@ -130,7 +130,7 @@ export default function Vitrine() {
                   onClick={() => addToCart(product)}
                   className="mt-2 bg-blue-500 text-white py-2 rounded w-full"
                 >
-                  Add to cart
+                  Adicionar ao carrinho
                 </button>
               </div>
             </div>
@@ -141,7 +141,7 @@ export default function Vitrine() {
       <div className="mt-10">
         <h2 className="text-2xl font-bold tracking-tight text-gray-900">Shopping Cart</h2>
         {cart.length === 0 ? (
-          <p className="mt-2 text-sm text-gray-500">Your cart is empty.</p>
+          <p className="mt-2 text-sm text-gray-500">Seu carrinho está vazio.</p>
         ) : (
           <ul className="mt-4 divide-y divide-gray-200">
             {cart.map((item) => (
@@ -176,7 +176,7 @@ export default function Vitrine() {
                     onClick={() => removeFromCart(item.id)}
                     className="ml-4 text-sm text-red-500"
                   >
-                    Remove
+                    Remover
                   </button>
                 </div>
               </li>
@@ -189,13 +189,13 @@ export default function Vitrine() {
             to={"/Home"}
           >
             <RiArrowGoBackFill size={30} />
-            <span className="ml-2">Back</span>
+            <span className="ml-2">Voltar</span>
           </Link>
           <button
             onClick={checkout}
             className="bg-green-500 text-white py-2 px-4 rounded w-24"
           >
-            Checkout
+            Finalizar compra
           </button>
         </div>
       </div>
