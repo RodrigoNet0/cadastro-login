@@ -69,7 +69,7 @@ export default function Login() {
       <img
         src="https://wallpapercave.com/wp/wp2757956.gif"
         alt="bg"
-        className="absolute inset-0 w-full h-full object-cover opacity-20"
+        className="absolute inset-0 w-full h-full object-cover"
       />
       <Formik
         initialValues={initialValues}
@@ -80,7 +80,7 @@ export default function Login() {
         validationSchema={validationSchema}
       >
         {({ handleChange }) => (
-          <Form className="bg-white p-8 shadow-md rounded-md max-w-sm w-full z-10">
+          <Form className="bg-white bg-opacity-70 p-8 shadow-md rounded-md max-w-sm w-full z-10">
             <div className="text-center">
               <img
                 alt="Your Company"

@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import * as yup from "yup";
 import { Formik, Field, Form } from "formik";
 import { useEffect, useState } from "react";
 import swal from "sweetalert2";
-
 
 export default function Login() {
   interface Values {
@@ -11,8 +10,7 @@ export default function Login() {
     number: string; 
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [values, setValues] = useState<Values>({
+  const [, setValues] = useState<Values>({
     email: "",
     number: "",
   });
@@ -61,21 +59,24 @@ export default function Login() {
     number: yup.string().required("Preencha o número de telefone").min(9, "Número de telefone inválido"),
   });
 
- 
-
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={handleSubmit}
-      validateOnChange={false}
-      validateOnBlur={false}
-      validateOnMount={false}
-      validationSchema={validationSchema}
-    >
-      {({ handleChange }) => (
-        <Form>
-          <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-            <div className="sm:mx-auto sm:w-full sm:max-w-md bg-white p-8 shadow-md rounded-md">
+    <div className="relative flex min-h-screen flex-col justify-center px-6 py-12 lg:px-8">
+      <img
+        src="https://wallpapercave.com/wp/wp2757956.gif"
+        alt="bg"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+      <Formik
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        validateOnChange={false}
+        validateOnBlur={false}
+        validateOnMount={false}
+        validationSchema={validationSchema}
+      >
+        {({ handleChange }) => (
+          <Form>
+            <div className="sm:mx-auto sm:w-full sm:max-w-md bg-white p-8 shadow-md rounded-md relative z-10">
               <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 <img
                   alt="Your Company"
@@ -83,7 +84,7 @@ export default function Login() {
                   className="mx-auto h-10 w-auto"
                 />
                 <h2 className="mt-6 text-2xl font-bold leading-9 tracking-tight text-gray-900 text-center">
-               Enviar contato
+                  Enviar contato
                 </h2>
               </div>
 
@@ -116,9 +117,6 @@ export default function Login() {
                     >
                       Número de telefone
                     </label>
-                    <div className="text-sm">
-                
-                    </div>
                   </div>
                   <div className="mt-2">
                     <Field
@@ -138,16 +136,14 @@ export default function Login() {
                     type="submit"
                     className="flex w-full justify-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
-              Enviar
+                    Enviar
                   </button>
                 </div>
-               
               </div>
-             
             </div>
-          </div>
-        </Form>
-      )}
-    </Formik>
+          </Form>
+        )}
+      </Formik>
+    </div>
   );
 }
